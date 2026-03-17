@@ -10,14 +10,25 @@ import { generate } from 'orval';
 
 const convertObj = promisify(s2o.convertObj);
 
-const swaggerFile = process.argv[2];
+// Parse args: generate.js <spec> [-o <output-dir>]
+const args = process.argv.slice(2);
+let swaggerFile;
+let outputDir;
+
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '-o' || args[i] === '--output') {
+    outputDir = args[++i];
+  } else if (! swaggerFile) {
+    swaggerFile = args[i];
+  }
+}
 
 if (! swaggerFile) {
-  console.error('Usage: openapi-ts-client <swagger-or-openapi-file>');
+  console.error('Usage: openapi-ts-client <swagger-or-openapi-file> [-o <output-dir>]');
   console.error('');
   console.error('Example:');
   console.error('  openapi-ts-client ./swagger.json');
-  console.error('  npm run generate -- ./swagger.json');
+  console.error('  openapi-ts-client ./swagger.json -o ../bitmex-rest/src');
   process.exit(1);
 }
 
@@ -29,7 +40,7 @@ if (! existsSync(swaggerPath)) {
 }
 
 const pkgDir = resolve(dirname(new URL(import.meta.url).pathname), '..');
-const srcDir = resolve(pkgDir, 'src');
+const srcDir = outputDir ? resolve(outputDir) : resolve(pkgDir, 'src');
 const clientDir = resolve(srcDir, 'client');
 const openapiPath = resolve(pkgDir, 'openapi.json');
 

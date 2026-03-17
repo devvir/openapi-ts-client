@@ -4,31 +4,51 @@ Generate TypeScript types, Zod schemas, and typed API clients from any Swagger 2
 
 ## What it generates
 
-| Output | Tool | Description |
+| File | Tool | Description |
 |---|---|---|
-| `dist/types.ts` | [openapi-typescript](https://openapi-ts.dev) | TypeScript interfaces for all schemas and operations |
-| `dist/schemas.ts` | [orval](https://orval.dev) | Zod validation schemas |
-| `dist/client/fetch.ts` | [orval](https://orval.dev) | Native fetch client (zero runtime deps) |
-| `dist/client/axios.ts` | [orval](https://orval.dev) | Axios-based client |
-| `dist/openapi.json` | [swagger2openapi](https://github.com/Mermade/oas-kit) | Converted OAS 3.0 spec (if input was Swagger 2.0) |
+| `types.ts` | [openapi-typescript](https://openapi-ts.dev) | TypeScript interfaces for all schemas and operations |
+| `schemas.ts` | [orval](https://orval.dev) | Zod validation schemas |
+| `client/fetch.ts` | [orval](https://orval.dev) | Native fetch client (zero runtime deps) |
+| `client/axios.ts` | [orval](https://orval.dev) | Axios-based client |
+| `openapi.json` | [swagger2openapi](https://github.com/Mermade/oas-kit) | Converted OAS 3.0 spec (if input was Swagger 2.0) |
+
+All files are generated into the output directory (`src/` by default, or the directory specified with `-o`).
 
 ## Setup
 
 ```bash
 pnpm install
-pnpm generate -- <path-to-swagger.json>
-pnpm build
 ```
 
-## Generate
-
-Point it at any Swagger 2.0 or OpenAPI 3.x JSON file:
+## Usage
 
 ```bash
-npm run generate -- ./swagger.json
+pnpm generate -- <spec-file> [-o <output-dir>]
 ```
 
-This produces auto-generated TypeScript source in `src/`, which is then compiled to `dist/` via `npm run build`.
+### Arguments
+
+| Argument | Required | Description |
+|---|---|---|
+| `<spec-file>` | Yes | Path to a Swagger 2.0 or OpenAPI 3.x JSON file |
+
+### Options
+
+| Option | Description |
+|---|---|
+| `-o, --output <dir>` | Output directory for generated files. Defaults to `src/` within the package. |
+
+### Examples
+
+```bash
+# Generate into the default src/ directory
+pnpm generate -- ./swagger.json
+
+# Generate into an external project
+pnpm generate -- ./swagger.json -o ../my-api-client/src
+```
+
+The generated files are TypeScript source. To use them, they need to be compiled. If you used the default output directory, `pnpm build` will compile them to `dist/`.
 
 ## Consuming the package
 
