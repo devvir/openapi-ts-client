@@ -1,0 +1,25 @@
+{
+  "name": "@devvir/openapi-ts-client",
+  "version": "1.0.0",
+  "description": "Generate TypeScript types, Zod schemas, and typed API clients from any Swagger/OpenAPI spec",
+  "author": "devvir",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "build": "tsc && cp src/openapi.json dist/openapi.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "openapi-typescript": "^7.13.0",
+    "orval": "^8.5.3",
+    "swagger2openapi": "^7.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "axios": "^1.13.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.0",
+    "zod": "^4.0.0"
+  }
+}

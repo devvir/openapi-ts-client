@@ -1,0 +1,32 @@
+# Generated source (regenerated via `npm run generate`)
+src/
+
+# Build output
+dist/
+
+# Generated spec (intermediate artifact)
+openapi.json
+
+# Dependencies
+node_modules/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+
+# Vitest
+vitest.config.*.timestamp*
